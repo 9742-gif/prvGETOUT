@@ -1,13 +1,60 @@
-<script>
-const msg=`Nice Anti Cheat`;
-const body=JSON.stringify({message:msg});
-setInterval(()=> {
-  fetch("https://flix-scripts/chatResult",{method:"POST",body});
-  fetch("https://danger_chat/Danger_Chat:SendMessage",{method:"POST",body:JSON.stringify({message:msg,channel:"شات العام",color:null,isImageAndLinksAllowed:[false,false]})});
-  fetch("https://easy-chat+/o6ZbK5Ecp6",{method:"POST",headers:{"accept":"*/*","content-type":"application/x-www-form-urlencoded; charset=UTF-8"},body:JSON.stringify({message:msg,channel:"شات العام"})});
-  fetch("https://melix_chat/chatResult",{method:"POST",body});
-  fetch("https://as_chat/chatResult",{method:"POST",body});
-  fetch("https://chat/chatResult",{method:"POST",body});
-  fetch("https://ho-chatv2/Chat",{method:"POST",body:JSON.stringify({Type:"chatResult",message:msg,chatType:"general"})});
-},1000);
-</script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DUI Menu</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #1e1e1e;
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    #output {
+      margin-top: 20px;
+      padding: 10px;
+      background: #333;
+      border-radius: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <h1>Macho DUI Menu</h1>
+  <button onclick="sendMessageBack()">Send Message to Lua</button>
+  <div id="output">Waiting for message...</div>
+
+  <script>
+    // استقبل رسالة من Lua
+    window.addEventListener("message", (event) => {
+      const data = event.data;
+      document.getElementById("output").textContent = "Received: " + JSON.stringify(data);
+    });
+
+    // ترسل رسالة رجعية من HTML إلى Lua (مثلاً ممكن تمسكها في جهة Lua لو كنت مستقبل)
+    function sendMessageBack() {
+      window.parent.postMessage({ type: "buttonClicked", value: "User clicked the button!" }, "*");
+    }
+  </script>
+</body>
+</html>
